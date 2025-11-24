@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Үйлену той</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="christmasscript.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script type="module">
+  
+   
+
+    function submitRSVP(isAttending) {
+      const name = document.getElementById('name').value;
+      if (name === '') {
+        alert('Есіміңізді жазыңыз');
+        return;
+      }
+      if (isAttending) {
+        generateInvitation(name);
+        saveRSVP(name, true);
+      } else {
+        alert('Сіздің тойға келмейтіндігіңіз үшін өкініш білдіреміз.');
+        saveRSVP(name, false);
+      }
+    }
+
+    function saveRSVP(name, isAttending) {
+      const rsvpRef = ref(database, 'rsvps/' + name);
+      set(rsvpRef, {
+        attending: isAttending
+      });
+    }
+  </script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <img src="photo/left_side_2.png" alt="Left Side Decoration" class="left-side-element">
+  <div class="content">
+    <div class="container text-center">
+      <div class="circle-container" data-aos="fade-up">
+        <div class="photo">
+          <img src="photo/logo_wedding2.png" alt="Wedding Photo" class="img-fluid" id="wedding-photo">
+        </div>
+      </div>
+      <br>
+      <h2><strong>Құрметті қонақтар!</strong></h2>
+      <div class="text_3" data-aos="fade-up">
+        <br>
+        <h3>Сіздерді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың
+          қадірлі қонағы болуларыңызға шақырамыз.</h3>
+      </div>
+      <br>
+      <h3><strong>Той уақыты:</strong></h3>
+      <h4 class="button" data-aos="fade-up">26 наурыз 2026 беташар сағат 17:00 <br> Той 18:00</h4>
+      
+      <div id="countdown" data-aos="fade-up"></div>
+      <br>
+      <h3><strong>Той иелері</strong></h3>
+      <h2><strong>Марат & Айнагүл </strong></h2>
+      <br>
+      <div data-aos="fade-up">
+        <h3><strong>Өтетін орны: </strong></h3>
+        <h4>Тараз, Қаратай Тұрысов көшесі 13,</h4><h4>Ресторан "Хан сарай"</h4>
+        <div class="icons">
+          <a href="https://www.instagram.com/khansaray_taraz" class="inst" target="_blank"></a>
+          <a href="https://go.2gis.com/E0i1a" class="gis" target="_blank"></a>
+        </div>
+        <br>
+<iframe
+    src="https://yandex.kz/map-widget/v1/?ll=71.350086%2C42.894767&z=17&pt=71.350086,42.894767,pm2rdm"
+    width="100%"
+    height="484"
+    frameborder="0"
+    allowfullscreen="true">
+</iframe>
+      </div>
+      <br>
+      <div id="calendar" class="my-4" data-aos="fade-up"></div>
+      <form id="rsvp-form" class="my-4">
+        <div class="form-group">
+          <label for="name"><h3><strong>Есіміңіз: </strong></h3></label>
+          <input type="text" id="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Тойға келесіз бе?</label><br>
+          <button type="button" class="btn btn-success btn-custom" onclick="submitRSVP(true)">Ия
+        </button>
+          <button type="button" class="btn btn-danger btn-custom" onclick="submitRSVP(false)">Жоқ</button>
+        </div>
+      </form>
+      <div id="invitation-container" style="display:none;">
+        <img id="invitation-image" src="" alt="Invitation">
+        <a id="download-link" href="" download="invitation.jpg">Шақыртуды жүктеп алыңыз</a>
+      </div>
+
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function submitRSVP(isAttending) {
+    const name = document.getElementById('name').value;
+    if (name === '') {
+      alert('Есіміңізді жазыңыз');
+      return;
+    }
+    if (isAttending) {
+      generateInvitation(name);
+    } else {
+      alert('Сіздің тойға келмейтіндігіңіз үшін өкініш білдіреміз.');
+    }
+  }
+
+  function generateInvitation(name) {
+    const invitationText = `Құрметті <strong>${name}</strong>,\nСізді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарқанымыздың қадірлі қонағы болуларыңызға шақырамыз.\n<strong>Той уақыты:</strong> 26 наурыз 2026 сағат 19:00`;
+    const invitationContainer = document.createElement('div');
+    invitationContainer.style.width = '600px';
+    invitationContainer.style.height = '400px';
+    invitationContainer.style.backgroundImage = 'url("photo/366.png")';
+    invitationContainer.style.backgroundSize = 'cover';
+    invitationContainer.style.color = '#051149';
+    invitationContainer.style.display = 'flex';
+    invitationContainer.style.flexDirection = 'column';
+    invitationContainer.style.justifyContent = 'center';
+    invitationContainer.style.alignItems = 'center';
+    invitationContainer.style.textAlign = 'center';
+    invitationContainer.style.padding = '20px';
+    invitationContainer.innerHTML = `
+      <h2>Мағжан & Аяжан</h2>
+      
+      <h3>${invitationText.replace(/\n/g, '<br>')}</h3>
+      <h3><strong>Той иелері:</strong> Марат & Айнагүл</h3>
+      <br>
+      <h3><strong>Өтетін орны: </strong>Тараз, Қаратай Тұрысов көшесі 13, Ресторан "Хан сарай"</h3>
+    `;
+
+    document.body.appendChild(invitationContainer);
+
+    html2canvas(invitationContainer).then(canvas => {
+      const imgData = canvas.toDataURL('image/jpeg');
+      const invitationImage = document.getElementById('invitation-image');
+      invitationImage.src = imgData;
+      document.getElementById('invitation-container').style.display = 'block';
+      document.getElementById('download-link').href = imgData;
+      
+      document.body.removeChild(invitationContainer);
+    });
+  }
+</script>
+   
+      <h3><strong>Сіздерді асыға күтеміз!</strong></h3>
+    </div>
+    <img src="photo/right_side_2.png" alt="Right Side Decoration" class="right-side-element">
+  </div>
+   <!-- Музыкальный плеер -->
+   <audio id="background-music" loop>
+    <source src="music/back_music.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает воспроизведение музыки.
+  </audio>
+  <!-- Кнопка для управления музыкой -->
+ <button id="music-control" class="music-button"></button>
+<audio id="background-music" loop>
+  <source src="music/back_music.mp3" type="audio/mpeg">
+</audio>
+
+  <!-- Tooltip for the music button -->
+  <div id="music-tooltip" class="music-tooltip">
+    
+  </div>
+
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
+

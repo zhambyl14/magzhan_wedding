@@ -1,0 +1,159 @@
+body {
+  font-family: 'Times New Roman', cursive;
+  background-image: url('photo/366.png');
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: #213813;
+}
+
+.left-side-element {
+  top: 0;
+  left: 0;
+  max-width: 300px;
+  z-index: 10;
+  margin-top: -100px;
+  margin-left: -100px;
+}
+
+.right-side-element {
+  position: absolute;
+  bottom: 0;
+  right: 0; 
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 40px; /* Space for the right-side element */
+}
+
+.container {
+  font-family: 'Times New Roman', cursive;
+  background-color: transparent;
+  padding: 0px;
+  border-radius: 10px;
+  margin-top: -150px;
+}
+
+h2, h3 {
+  font-family: 'Times New Roman', cursive;
+  color: #213813;
+}
+
+.text_1 {
+  font-family: 'Times New Roman', cursive;
+  color: #213813;
+  font-weight: bold;
+  margin-top: -170px;
+}
+
+.button {
+  background-color: #213813;
+  width: auto; /* Автоматический размер кнопки по содержимому */
+  height: 85px; /* Высота кнопки */
+  line-height: 40px; /* Высота кнопки для вертикального центрирования текста */
+  color: #ffffff;
+  font-family: 'Times New Roman', cursive;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.icons a {
+  display: block;
+  width: 50px; /* Размер иконки */
+  height: 50px;
+  margin: 0 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.inst {
+  background-image: url('photo/inst.png');
+}
+
+.gis {
+  background-image: url('photo/gis.jpg');
+}
+
+/* Стили для музыкальной кнопки */
+.music-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-image: url('photo/waltz3.gif'); /* паузадағы сурет */
+  background-size: cover;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  background-color: transparent;
+}
+
+.music-button.playing {
+  background-image: url('photo/waltz2.gif'); /* музыка ойнағанда GIF */
+}
+
+
+.music-button:focus {
+  outline: none;
+}
+
+
+
+/* Стили для всплывающей подсказки */
+.music-tooltip {
+  position: fixed;
+  bottom: 90px;
+  right: 10px;
+  background-color: transparent;
+  color: #24610e;
+  border-radius: 5px;
+  display: none;
+  z-index: 1001;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#invitation-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#invitation-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+#download-link {
+  display: inline-block;
+  padding: 10px 0px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+#countdown {
+  font-size: 0px;
+  font-weight: bold;
+  color: #15340a; /* өз түсің болса, қоймай-ақ қой */
+  text-align: center;
+}
