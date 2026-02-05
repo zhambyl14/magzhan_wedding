@@ -9,20 +9,30 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <img src="photo/left_side_2.png" alt="Decoration" class="left-side-element">
     <div class="content">
         <div class="container text-center">
-            <div class="circle-container" data-aos="fade-up">
-                <div class="photo">
-                    <img src="photo/logo_wedding2.png" alt="Wedding Photo" class="img-fluid" id="wedding-photo">
+            <div class="hero-section" data-aos="fade">
+                <div class="hero-image-container">
+                    <img src="photo/background.png" alt="Wedding Photo" class="hero-image">
+                    <div class="hero-overlay"></div> <div class="hero-text" data-aos="fade-up" data-aos-delay="500">
+                        <h1>Мағжан & Аяжан</h1>
+                        <p>Тойға шақыру</p>
+                    </div>
                 </div>
             </div>
+
             <h2 class="mt-4"><strong>Құрметті қонақтар!</strong></h2>
-            <div class="text_3" data-aos="fade-up">
-                <h3>Сіздерді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың қадірлі қонағы болуларыңызға шақырамыз.</h3>
+            <div class="text_3_container" data-aos="fade-up">
+                <img src="photo/left_side_2.png" alt="Decoration" class="decor-left">
+                
+                <div class="text_3">
+                    <h3>Сіздерді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың қадірлі қонағы болуларыңызға шақырамыз.</h3>
+                </div>
+
+                <img src="photo/right_side_2.png" alt="Decoration" class="decor-right">
             </div>
             <h3 class="mt-4"><strong>Той уақыты:</strong></h3>
-            <div class="wedding-card" data-aos="zoom-in">
+            <div class="wedding-card" data-aos="zoom-in">   
                 <div class="date-top"><h3>26 НАУРЫЗ 2026</h3></div>
                 <div class="date-details">
                     <span>БЕТАШАР: 17:00</span>
@@ -49,10 +59,12 @@
                 <iframe src="https://yandex.kz/map-widget/v1/?ll=71.350086%2C42.894767&z=17&pt=71.350086,42.894767,pm2rdm" width="100%" height="290" frameborder="0"></iframe>
             </div>
             <div class="rsvp-box my-5">
-                <h3>Есіміңіз</h3>
+                <h4>Есіміңіз</h4>
                 <input type="text" id="guestName" class="form-control mb-3" placeholder="Есіміңізді жазыңыз">
-                <h3>Тойға келесіз бе?</h3>
-                <button id="btn-yes" onclick="sendRSVP('Ия')" class="btn btn-success px-4">Иә</button>
+                <h3><p class="text-center mb-4" style="font-size: 22px;">
+                    Құрметті қонақ, тойға қатысуыңызды растауыңызды сұраймыз:
+                </p></h3>
+                <button id="btn-yes" onclick="sendRSVP('Ия')" class="btn btn-success px-4">Келемін</button>
                 <button id="btn-no" onclick="sendRSVP('Жоқ')" class="btn btn-danger px-4">Келе алмаймын</button>
             </div>
             <div id="invitation-container" style="display:none;" class="mb-5">
@@ -61,10 +73,9 @@
             </div>
             <h3><strong>Сіздерді асыға күтеміз!</strong></h3>
         </div>
-        <img src="photo/right_side_2.png" alt="Decoration" class="right-side-element">
     </div>
     <audio id="background-music" loop autoplay>
-        <source src="music/back_music.mp3" type="audio/mpeg">
+        <source src="music/vocal.mp3" type="audio/mpeg">
     </audio>
     <button id="music-control" class="music-button"></button>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
