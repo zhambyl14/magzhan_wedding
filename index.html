@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мағжан & Аяжан - Үйлену той</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <img src="photo/left_side_2.png" alt="Decoration" class="left-side-element">
+    <div class="content">
+        <div class="container text-center">
+            <div class="circle-container" data-aos="fade-up">
+                <div class="photo">
+                    <img src="photo/logo_wedding2.png" alt="Wedding Photo" class="img-fluid" id="wedding-photo">
+                </div>
+            </div>
+            <h2 class="mt-4"><strong>Құрметті қонақтар!</strong></h2>
+            <div class="text_3" data-aos="fade-up">
+                <h3>Сіздерді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың қадірлі қонағы болуларыңызға шақырамыз.</h3>
+            </div>
+            <h3 class="mt-4"><strong>Той уақыты:</strong></h3>
+            <div class="wedding-card" data-aos="zoom-in">
+                <div class="date-top"><h3>26 НАУРЫЗ 2026</h3></div>
+                <div class="date-details">
+                    <span>БЕТАШАР: 17:00</span>
+                    <span class="date-divider">|</span>
+                    <span>ТОЙ: 18:00</span>
+                </div>
+            </div>
+            <div id="countdown-wrapper" class="my-4" data-aos="fade-up">
+                <div id="countdown" class="d-flex justify-content-center">
+                    <div class="time-unit"><span id="days">00</span><small>Күн</small></div>
+                    <div class="time-unit"><span id="hours">00</span><small>Сағат</small></div>
+                    <div class="time-unit"><span id="minutes">00</span><small>Минут</small></div>
+                    <div class="time-unit"><span id="seconds">00</span><small>Секунд</small></div>
+                </div>
+            </div>
+            <h3><strong>Той иелері:</strong> Марат & Айнагүл</h3>
+            <div data-aos="fade-up">
+                <h3><strong>Өтетін орны:</strong></h3>
+                <h4>Тараз қаласы, Қаратай Тұрысов 13, "Хан сарай"</h4>
+                <div class="icons">
+                    <a href="https://www.instagram.com/khansaray_taraz" class="inst" target="_blank"></a>
+                    <a href="https://go.2gis.com/E0i1a" class="gis" target="_blank"></a>
+                </div>
+                <iframe src="https://yandex.kz/map-widget/v1/?ll=71.350086%2C42.894767&z=17&pt=71.350086,42.894767,pm2rdm" width="100%" height="400" frameborder="0"></iframe>
+            </div>
+            <div class="rsvp-box my-5">
+                <h3>Есіміңіз</h3>
+                <input type="text" id="guestName" class="form-control mb-3" placeholder="Есіміңізді жазыңыз">
+                <h3>Тойға келесіз бе?</h3>
+                <button id="btn-yes" onclick="sendRSVP('Ия')" class="btn btn-success px-4">Иә, қуана келемін</button>
+                <button id="btn-no" onclick="sendRSVP('Жоқ')" class="btn btn-danger px-4">Өкінішке орай, келе алмаймын</button>
+            </div>
+            <div id="invitation-container" style="display:none;" class="mb-5">
+                <img id="invitation-image" src="" alt="Invitation" class="img-fluid mb-3">
+                <a id="download-link" href="" download="invitation.jpg" class="btn btn-primary btn-lg btn-block py-3 shadow-lg">ШАҚЫРТУДЫ ЖҮКТЕП АЛЫҢЫЗ</a>
+            </div>
+            <h3><strong>Сіздерді асыға күтеміз!</strong></h3>
+        </div>
+        <img src="photo/right_side_2.png" alt="Decoration" class="right-side-element">
+    </div>
+    <audio id="background-music" loop autoplay>
+        <source src="music/back_music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-control" class="music-button"></button>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
