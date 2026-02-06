@@ -1,80 +1,94 @@
+/* Жалпы реттеулер */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+    width: 100%;
+    scroll-behavior: smooth !important;
+}
+
 body {
     font-family: 'Times New Roman', serif;
     background: url('photo/366.png') fixed center/cover;
     color: #213813;
-    margin: 0;
-    overflow-x: hidden;
 }
 
-/* Мәтін мен суреттер блогы */
-.text_3_container {
+/* Hero Бөлімі */
+.hero-section {
     position: relative;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 5px;
+    width: 100%;
 }
 
-.text_3 {
-    padding: 15px;
-    z-index: 2;
+.cap-part {
     position: relative;
+    width: 100%;
+    height: 35vh;
+    line-height: 0;
 }
 
-/* Сол жақ жоғарғы бұрыш */
-.decor-left {
+.full-img-cap {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.bg-part {
+    position: relative;
+    width: 100%;
+    line-height: 0;
+    margin-top: 0px;
+}
+
+.full-img-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.text-overlay {
     position: absolute;
-    top: -70px;
-    left: -50px;
-    width: 200px !important;
-    z-index: 0;
-    opacity: 0.8;
+    top: -70px !important; /* Логотиптен төмен орналастыру */
+    left: 0;
+    right: 0;   
+    text-align: center;
+    z-index: 10;
 }
 
-/* Оң жақ төменгі бұрыш */
-.decor-right {
-    position: absolute;
-    bottom: -20px;
-    right: -25px;
-    width: 200px !important;
-    z-index: 1;
-    opacity: 0.8;
-}
-
-/* Батырмалардың өлшемін бірдей қылу */
-.rsvp-box .btn {
-    width: 280px !important;
-    height: 60px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin: 10px !important;
-    font-size: 16px !important;
-    border-radius: 8px !important;
-    white-space: normal !important;
-    text-align: center !important;
-}
-
-/* Countdown және Wedding Card стильдері */
-.wedding-card {
-    background-color: #213813;
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    max-width: 450px;
-    margin: 0 auto;
-}
-
-#countdown-wrapper {
-    background: rgba(33, 56, 19, 0.05);
-    border-radius: 12px;
-    padding: 15px 10px;
-    margin: 20px auto;
-    max-width: 400px;
-}
-
-.time-unit span {
-    font-size: 24px;
+.hero-text h1 {
+    font-size: 3.5rem;
     font-weight: bold;
+    color: #213813;
+    margin: 0;
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+/* Градиенттер */
+.gradient-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    z-index: 2;
+}
+
+.gradient-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));
+    z-index: 2;
 }
 
 /* Музыка батырмасы */
@@ -84,87 +98,120 @@ body {
     right: 30px;
     width: 60px;
     height: 60px;
-    background: url('photo/waltz3.gif') center/cover no-repeat;
-    border: 0 !important;
-    border-radius: 50%;
+    background: url('photo/waltz3.gif') center/cover no-repeat !important;
+    background-color: transparent !important;
+    border: none !important;
     outline: none !important;
-    box-shadow: none !important;
     z-index: 1000;
-    cursor: pointer;
 }
 
 .music-button.playing { background-image: url('photo/waltz2.gif') !important; }
 
-/* Мобильді нұсқа */
-@media (max-width: 600px) {
-    .rsvp-box .btn {
-        width: 90% !important;
-        margin: 5px auto !important;
-    }
-    .decor-left, .decor-right {
-        width: 70px;
-    }
+/* Карта және RSVP */
+.wedding-card {
+    background-color: #213813;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 450px;
+    margin: 20px auto;
+    
 }
-/* Басты экран контейнері */
-.hero-section {
-    right: 14.5px;
+
+.text_3_container {
     position: relative;
-    width: 107%;
-    height: 130vh; /* Экранның 100% биіктігі */
-    overflow: hidden;
+    max-width: 600px;
+    margin: 40px auto;
+}
+.text_3 h3 {
+    text-indent: 20px;
+    line-height: 1.5;
+    
 }
 
-/* Фотоның стилі */
-.hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Фотоны созбай, экранды толық жабу үшін */
-    display: block;
-}
+.decor-left { position: absolute; top: -60px; left: -40px; width: 120px; opacity: 0.8; }
+.decor-right { position: absolute; bottom: -20px; right: -20px; width: 120px; opacity: 0.8; }
 
-/* Фотоның үстін сәл қараңғылау (текст оқылу үшін) */
-.hero-overlay {
-    position: absolute;
-    top: 40;
-    left: 40;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2); /* 20% қараңғылау */
-}
-
-/* Мәтін стилі */
-.hero-text {
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    transform: translate(-50%, -50%); /* Ортаға дәл орналастыру */
-    text-align: center;
-    color: #213813;
-    margin-top: 60px;
-    width: 100%;
-    z-index: 5;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Мәтінге көлеңке */
-}
-
-.hero-text h1 {
-    font-size: 3.5rem; /* Үлкен шрифт */
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-family: 'Times New Roman', serif;
-}
-
-.hero-text p {
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-}
-
-/* Мобильді телефондарға арналған шрифт өлшемі */
+/* Мобильді бейімдеу (Телефондар үшін) */
 @media (max-width: 600px) {
-    .hero-text h1 {
-        font-size: 2.5rem;
+   
+    .text-overlay { top: 100px; }
+    .hero-text h1 { font-size: 2.5rem; }
+    .cap-part { height: 30vh; }
+}
+
+
+/* Санағыш контейнері */
+#countdown-wrapper {
+    margin: 50px auto;
+    max-width: 500px;
+}
+
+#countdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Әрбір уақыт бірлігі (Күн, Сағат т.б.) */
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-width: 80px;
+}
+
+/* Үлкен сандар стилі */
+.time-unit span {
+    font-size: 2.8rem;
+    font-weight: 300; /* Жіңішке әрі заманауи */
+    color: #000000;
+    line-height: 1;
+    margin-bottom: 5px;
+    font-family: 'Georgia', serif;
+}
+
+/* Астындағы жазулар (Күн, Сағат...) */
+.time-unit small {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000; /* Сәл ашық жасыл */
+    font-weight: 600;
+}
+
+/* Санағыш арасындағы нүктелер (Divider) */
+.time-unit:not(:last-child)::after {
+    content: ':';
+    position: absolute;
+    right: -15px;
+    top: 10px;
+    font-size: 1.5rem;
+    color: #000000; /* Алтын түстес */
+    opacity: 0.5;
+}
+
+/* Мобильді телефонға ыңғайлау */
+@media (max-width: 600px) {
+    .time-unit span {
+        font-size: 2rem;
     }
-    .hero-text p {
-        font-size: 1.2rem;
+    .time-unit {
+        min-width: 60px;
     }
+    .time-unit small {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+}
+.vec {
+    text-align: center;
+    width: 150%;           /* Вектордың ұзындығы (мысалы, экранның 80%-ы) */
+    max-width: 800px;     /* Ең ұзын болатын шегі */
+    height: 3px;          /* Қалыңдығы */
+    background: linear-gradient(to right, transparent, #213813, transparent); /* Шеттері жоғалып кететін стиль */
+    margin: 20px auto;
+    margin-left: -100px;    /* Ортада тұруы және асты-үстінен қашықтық */
+    display: block;
 }

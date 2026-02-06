@@ -3,103 +3,205 @@ document.addEventListener("DOMContentLoaded", () => {
     const musicControl = document.getElementById("music-control");
     const backgroundMusic = document.getElementById("background-music");
     const weddingDate = new Date('March 26, 2026 18:00:00').getTime();
+// --- КӨП КЕЗЕҢДІ ЖАЙЛЫ СКРОЛЛ (STORYTELLING) ---
+    const storyPoints = [
+        { selector: 'h1', delay: 3000 },                      // Мағжан & Аяжан (3 сек күту)
+        { selector: '.mt-5', delay: 3000 },                   // Құрметті қонақтар!
+        { selector: '.text_3', delay: 4000 },                  // Шақыру мәтіні
+        { selector: '.date-top', delay: 3500 },                // 26 Наурыз 2026
+        { selector: '.owner-names', delay: 3000 },             // Той иелері
+        { selector: '.mt-5 h3 strong', delay: 3000 },          // Өтетін орны
+        { selector: '.rsvp-box p', delay: 3000 },              // Растауыңызды сұраймыз
+        { selector: '.rsvp-box', delay: 0 }                    // Есім жазатын жер (соңғы аялдама)
+    ];
 
-    // 1. Музыка логикасы
-    const toggleMusic = (play = true) => {
-        if (play) {
-            backgroundMusic.play();
+    async function startStoryScroll() {
+        // Сайт ашылғанда сәл күту (2 секунд)
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        for (const point of storyPoints) {
+            const element = document.querySelector(point.selector);
+            if (element) {
+                // Экранды элементке қарай баяу жылжыту
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Егер келесі қадам болса, көрсетілген уақыттай күту
+                if (point.delay > 0) {
+                    await new Promise(resolve => setTimeout(resolve, point.delay));
+                }
+            }
+        }
+    }
+
+    // Скроллды іске қосу
+    startStoryScroll();
+    // --- 2. МУЗЫКА ЛОГИКАСЫ ---
+    const forcePlay = () => {
+        backgroundMusic.play().then(() => {
             musicControl.classList.add("playing");
-        } else {
-            backgroundMusic.pause();
-            musicControl.classList.remove("playing");
+        }).catch(error => {
+            console.log("Автоматты ойнатуды браузер күтуде...");
+        });
+    };
+
+    // Алғашқы әрекетте музыканы қосу
+    forcePlay();
+
+    const playOnInteraction = () => {
+        if (backgroundMusic.paused && !musicControl.classList.contains('manual-paused')) {
+            forcePlay();
         }
     };
 
-    document.body.addEventListener('click', () => toggleMusic(true), { once: true });
-    musicControl.addEventListener("click", () => toggleMusic(backgroundMusic.paused));
+    window.addEventListener('scroll', playOnInteraction, { once: true });
+    window.addEventListener('click', playOnInteraction, { once: true });
+    window.addEventListener('touchstart', playOnInteraction, { once: true });
 
-    // 2. Таймер логикасы
+    musicControl.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (backgroundMusic.paused) {
+            musicControl.classList.remove('manual-paused');
+            forcePlay();
+        } else {
+            musicControl.classList.add('manual-paused');
+            backgroundMusic.pause();
+            musicControl.classList.remove("playing");
+        }
+    });
+
+    // --- 3. ТАЙМЕР ЛОГИКАСЫ ---
     setInterval(() => {
         const distance = weddingDate - new Date().getTime();
         if (distance < 0) return;
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        const timeParts = {
-            days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-            hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-            minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-            seconds: Math.floor((distance % (1000 * 60)) / 1000)
-        };
-
-        Object.keys(timeParts).forEach(key => {
-            document.getElementById(key).innerText = timeParts[key];
-        });
+        document.getElementById("days").innerText = days.toString().padStart(2, '0');
+        document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+        document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+        document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
     }, 1000);
 });
 
-// 3. RSVP жіберу
+// --- 4. RSVP ЖІБЕРУ ---
 async function sendRSVP(answer) {
-    const name = document.getElementById('guestName').value.trim();
-    const btns = [document.getElementById('btn-yes'), document.getElementById('btn-no')];
+    const nameInput = document.getElementById('guestName');
+    const name = nameInput.value.trim();
+    // HTML-де ID болуы керек: id="btn-yes" және id="btn-no"
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
 
-    if (!name) return alert('Есіміңізді енгізіңіз');
+    if (!name) {
+        alert('Есіміңізді енгізіңіз');
+        return;
+    }
 
-    // Түймелерді бұғаттау
-    btns.forEach(b => b.disabled = true);
-    setTimeout(() => btns.forEach(b => b.disabled = false), 7000);
+    if(btnYes) btnYes.disabled = true;
+    if(btnNo) btnNo.disabled = true;
 
     try {
         await fetch('https://script.google.com/macros/s/AKfycbxmYSFFW6mxtM3A22ssfW7iD1_mUuQKsRli47ZU-H34LAeU80EvSiy-djP7jFZZppfF/exec', {
             method: 'POST',
             mode: 'no-cors',
-            body: JSON.stringify({ name, attendance: answer })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, attendance: answer })
         });
 
         if (answer === 'Ия') {
+            alert('Рахмет! Қазір сізге 10 секунд ішінде арнайы шақырту қағазы жасалады...');
             generateInvitation(name);
         } else {
             alert('Сіздің тойға келмейтіндігіңіз үшін өкініш білдіреміз.');
         }
     } catch (e) {
-        alert('Қате шықты');
+        alert('Жіберу кезінде қате шықты.');
+    } finally {
+        setTimeout(() => {
+            if(btnYes) btnYes.disabled = false;
+            if(btnNo) btnNo.disabled = false;
+        }, 7000);
     }
 }
 
-// 4. Шақырту генерациясы
+// --- 5. ШАҚЫРТУ ГЕНЕРАЦИЯСЫ ЖӘНЕ СКРОЛЛ ---
 function generateInvitation(name) {
     const container = document.createElement('div');
+    
+    // Дизайн параметрлері
     Object.assign(container.style, {
-        width: '600px', height: '900px',
+        width: '600px',
+        height: '900px',
         backgroundImage: 'url("photo/invent.png")',
-        backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-        color: '#333', display: 'flex', flexDirection: 'column',
-        justifyContent: 'center', alignItems: 'center', textAlign: 'center',
-        padding: '80px', boxSizing: 'border-box', border: '10px double #3d6129',
-        fontFamily: "'Times New Roman', serif", position: 'absolute', left: '-9999px'
+        backgroundSize: '100% 100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        color: '#213813',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        padding: '60px',
+        boxSizing: 'border-box',
+        fontFamily: "'Times New Roman', serif",
+        position: 'fixed',
+        left: '-9999px',
+        top: '0'
     });
 
     container.innerHTML = `
-        <h1 style="font-size: 30px; margin: 0; font-weight: bold; color: #213813;">Мағжан & Аяжан</h1>
-        <div style="width: 100px; height: 3px; background: #6b8e23; margin: 10px 0 30px;"></div>
-        <p style="font-size: 22px; line-height: 1.6; max-width: 330px; margin-bottom: 20px;">
-            Құрметті <b>${name}</b>, <br>Сізді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың қадірлі қонағы болуларыңызға шақырамыз.
-        </p>
-        <p style="font-size: 22px; font-weight: bold; color: #213813; margin: 0;">Той уақыты: 26 наурыз 2026</p>
-        <div style="font-size: 20px; font-weight: bold; color: #213813; margin-top: 5px;">
-            БЕТАШАР: 17:00 <span style="margin: 0 10px;">|</span> ТОЙ: 18:00
+        <div style="margin-top: 50px;">
+            <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 10px;">Мағжан & Аяжан</h1>
+            <div style="width: 150px; height: 2px; background: #d4af37; margin: 10px auto 30px;"></div>
+            <p style="font-size: 24px; line-height: 1.4; padding: 0 40px; margin-bottom: 30px;">
+                Құрметті <b>${name}</b>, <br>
+                Сізді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың қадірлі қонағы болуларыңызға шақырамыз.
+            </p>
+            <div style="font-size: 22px; font-weight: bold; margin-bottom: 10px;">
+                26 НАУРЫЗ 2026
+            </div>
+            <div style="font-size: 18px; font-weight: bold;">
+                БЕТАШАР: 17:00 | ТОЙ: 18:00
+            </div>
+            <div style="margin-top: 40px; font-size: 20px;">
+                <p><strong>Той иелері:</strong> Марат & Айнагүл</p>
+                <p><strong>Мекен-жайы:</strong> Тараз қ., <br> "Хан сарай" рестораны</p>
+            </div>
         </div>
-        <div style="font-size: 24px; margin-top: 20px; color: #213813;">
-            <p style="margin: 0;"><strong>Той иелері:</strong> Марат & Айнагүл</p>
-            <p style="margin: 5px 0;"><strong>Өтетін орны:</strong> Тараз қаласы, <br> Ресторан "Хан сарай"</p>
-        </div>`;
+    `;
 
     document.body.appendChild(container);
 
-    html2canvas(container, { useCORS: true, scale: 2 }).then(canvas => {
+    html2canvas(container, {
+        useCORS: true,
+        scale: 2,
+        backgroundColor: null
+    }).then(canvas => {
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        document.getElementById('invitation-image').src = imgData;
-        document.getElementById('invitation-container').style.display = 'block';
-        document.getElementById('download-link').href = imgData;
+        const invitationImg = document.getElementById('invitation-image');
+        const downloadLink = document.getElementById('download-link');
+        const invContainer = document.getElementById('invitation-container');
+
+        if (invitationImg) invitationImg.src = imgData;
+        if (downloadLink) downloadLink.href = imgData;
+        if (invContainer) {
+            invContainer.style.display = 'block';
+            
+            // СУРЕТ ДАЙЫН БОЛҒАНДА ТӨМЕНГЕ СКРОЛЛ ЖАСАУ
+            setTimeout(() => {
+                invContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 600);
+        }
+
         document.body.removeChild(container);
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }).catch(err => {
+        alert("Шақырту суретін жасау кезінде техникалық қате шықты.");
+        console.error(err);
     });
 }
