@@ -13,23 +13,24 @@ body {
     color: #213813;
 }
 
-/* Hero Бөлімі */
+/* Hero Бөлімі - Телефонға бағытталған түзету */
 .hero-section {
     position: relative;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .cap-part {
     position: relative;
     width: 100%;
-    height: 35vh;
+    height: auto; /* Телефонда кесілмеуі үшін автоматты */
     line-height: 0;
 }
 
 .full-img-cap {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto; /* Сурет пропорциясын сақтайды */
     display: block;
 }
 
@@ -37,22 +38,24 @@ body {
     position: relative;
     width: 100%;
     line-height: 0;
-    margin-top: 0px;
+    margin-top: -1px; /* Арасындағы ақ сызықты жою */
 }
 
 .full-img-bg {
     width: 100%;
-    height: auto;
+    height: auto; /* Сурет пропорциясын сақтайды */
     display: block;
 }
 
 .text-overlay {
     position: absolute;
-    top: -70px !important; /* Логотиптен төмен орналастыру */
+    top: -40px !important; /* Ортаға немесе суретке қарай ыңғайлы жерге */
+    transform: translateY(-50%);
     left: 0;
-    right: 0;   
+    right: 0;  
     text-align: center;
     z-index: 10;
+    color: #213813;;
 }
 
 .hero-text h1 {
@@ -76,8 +79,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 150px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    height: 400px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255, 255, 255, 0.683));
     z-index: 2;
 }
 
@@ -86,8 +89,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px;
-    background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));
+    height: 600px;
+    background: linear-gradient(to top, rgba(255,255,255,0), rgba(255, 255, 255, 0.696));
     z-index: 2;
 }
 
@@ -115,7 +118,6 @@ body {
     border-radius: 12px;
     max-width: 450px;
     margin: 20px auto;
-    
 }
 
 .text_3_container {
@@ -126,7 +128,6 @@ body {
 .text_3 h3 {
     text-indent: 20px;
     line-height: 1.5;
-    
 }
 
 .decor-left { position: absolute; top: -60px; left: -40px; width: 120px; opacity: 0.8; }
@@ -134,10 +135,8 @@ body {
 
 /* Мобильді бейімдеу (Телефондар үшін) */
 @media (max-width: 600px) {
-   
-    .text-overlay { top: 100px; }
+    .text-overlay { top: 30%; } /* Телефонда мәтін орнын реттеу */
     .hero-text h1 { font-size: 2.5rem; }
-    .cap-part { height: 30vh; }
 }
 
 
@@ -153,7 +152,6 @@ body {
     align-items: center;
 }
 
-/* Әрбір уақыт бірлігі (Күн, Сағат т.б.) */
 .time-unit {
     display: flex;
     flex-direction: column;
@@ -162,56 +160,50 @@ body {
     min-width: 80px;
 }
 
-/* Үлкен сандар стилі */
 .time-unit span {
     font-size: 2.8rem;
-    font-weight: 300; /* Жіңішке әрі заманауи */
+    font-weight: 300;
     color: #000000;
     line-height: 1;
     margin-bottom: 5px;
     font-family: 'Georgia', serif;
 }
 
-/* Астындағы жазулар (Күн, Сағат...) */
 .time-unit small {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #000000; /* Сәл ашық жасыл */
+    color: #000000;
     font-weight: 600;
 }
 
-/* Санағыш арасындағы нүктелер (Divider) */
 .time-unit:not(:last-child)::after {
     content: ':';
     position: absolute;
     right: -15px;
     top: 10px;
     font-size: 1.5rem;
-    color: #000000; /* Алтын түстес */
+    color: #000000;
     opacity: 0.5;
 }
 
-/* Мобильді телефонға ыңғайлау */
 @media (max-width: 600px) {
-    .time-unit span {
-        font-size: 2rem;
-    }
-    .time-unit {
-        min-width: 60px;
-    }
-    .time-unit small {
-        font-size: 0.6rem;
-        letter-spacing: 1px;
-    }
+    .time-unit span { font-size: 2rem; }
+    .time-unit { min-width: 60px; }
+    .time-unit small { font-size: 0.6rem; letter-spacing: 1px; }
 }
+
 .vec {
     text-align: center;
-    width: 150%;           /* Вектордың ұзындығы (мысалы, экранның 80%-ы) */
-    max-width: 800px;     /* Ең ұзын болатын шегі */
-    height: 3px;          /* Қалыңдығы */
-    background: linear-gradient(to right, transparent, #213813, transparent); /* Шеттері жоғалып кететін стиль */
+    width: 90%; /* Телефонда экраннан шығып кетпеуі үшін */
+    max-width: 400px;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #213813, transparent);
     margin: 20px auto;
-    margin-left: -100px;    /* Ортада тұруы және асты-үстінен қашықтық */
     display: block;
+}
+
+.vec img {
+    max-width: 100%;
+    height: auto;
 }
