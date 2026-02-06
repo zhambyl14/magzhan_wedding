@@ -3,41 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const musicControl = document.getElementById("music-control");
     const backgroundMusic = document.getElementById("background-music");
     const weddingDate = new Date('March 26, 2026 18:00:00').getTime();
-// --- КӨП КЕЗЕҢДІ ЖАЙЛЫ СКРОЛЛ (STORYTELLING) ---
-    const storyPoints = [
-        { selector: 'h1', delay: 3000 },                      // Мағжан & Аяжан (3 сек күту)
-        { selector: '.mt-5', delay: 3000 },                   // Құрметті қонақтар!
-        { selector: '.text_3', delay: 4000 },                  // Шақыру мәтіні
-        { selector: '.date-top', delay: 3500 },                // 26 Наурыз 2026
-        { selector: '.owner-names', delay: 3000 },             // Той иелері
-        { selector: '.mt-5 h3 strong', delay: 3000 },          // Өтетін орны
-        { selector: '.rsvp-box p', delay: 3000 },              // Растауыңызды сұраймыз
-        { selector: '.rsvp-box', delay: 0 }                    // Есім жазатын жер (соңғы аялдама)
-    ];
 
-    async function startStoryScroll() {
-        // Сайт ашылғанда сәл күту (2 секунд)
-        await new Promise(resolve => setTimeout(resolve, 2000));
+    // --- 1. АВТОМАТТЫ СКРОЛЛ (STORYTELLING) АЛЫП ТАСТАЛДЫ ---
+    // Сайт енді ашылғанда ең басында тұрады.
 
-        for (const point of storyPoints) {
-            const element = document.querySelector(point.selector);
-            if (element) {
-                // Экранды элементке қарай баяу жылжыту
-                element.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-                
-                // Егер келесі қадам болса, көрсетілген уақыттай күту
-                if (point.delay > 0) {
-                    await new Promise(resolve => setTimeout(resolve, point.delay));
-                }
-            }
-        }
-    }
-
-    // Скроллды іске қосу
-    startStoryScroll();
     // --- 2. МУЗЫКА ЛОГИКАСЫ ---
     const forcePlay = () => {
         backgroundMusic.play().then(() => {
@@ -46,9 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Автоматты ойнатуды браузер күтуде...");
         });
     };
-
-    // Алғашқы әрекетте музыканы қосу
-    forcePlay();
 
     const playOnInteraction = () => {
         if (backgroundMusic.paused && !musicControl.classList.contains('manual-paused')) {
@@ -93,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
 async function sendRSVP(answer) {
     const nameInput = document.getElementById('guestName');
     const name = nameInput.value.trim();
-    // HTML-де ID болуы керек: id="btn-yes" және id="btn-no"
     const btnYes = document.getElementById('btn-yes');
     const btnNo = document.getElementById('btn-no');
 
@@ -133,7 +98,6 @@ async function sendRSVP(answer) {
 function generateInvitation(name) {
     const container = document.createElement('div');
     
-    // Дизайн параметрлері
     Object.assign(container.style, {
         width: '600px',
         height: '900px',
@@ -158,7 +122,7 @@ function generateInvitation(name) {
     container.innerHTML = `
         <div style="margin-top: 50px;">
             <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 10px;">Мағжан & Аяжан</h1>
-            <div style="width: 150px; height: 2px; background: #d4af37; margin: 10px auto 30px;"></div>
+            <div style="width: 150px; height: 2px; background: #0b1a0d; margin: 10px auto 30px;"></div>
             <p style="font-size: 24px; line-height: 1.4; padding: 0 40px; margin-bottom: 30px;">
                 Құрметті <b>${name}</b>, <br>
                 Сізді Мағжан мен Аяжанның үйлену тойына арналған салтанатты дастарханымыздың қадірлі қонағы болуларыңызға шақырамыз.
@@ -166,10 +130,10 @@ function generateInvitation(name) {
             <div style="font-size: 22px; font-weight: bold; margin-bottom: 10px;">
                 26 НАУРЫЗ 2026
             </div>
-            <div style="font-size: 18px; font-weight: bold;">
+            <div style="font-size: 22   px; font-weight: bold;">
                 БЕТАШАР: 17:00 | ТОЙ: 18:00
             </div>
-            <div style="margin-top: 40px; font-size: 20px;">
+            <div style="margin-top: 40px; font-size: 22px;">
                 <p><strong>Той иелері:</strong> Марат & Айнагүл</p>
                 <p><strong>Мекен-жайы:</strong> Тараз қ., <br> "Хан сарай" рестораны</p>
             </div>
@@ -193,7 +157,7 @@ function generateInvitation(name) {
         if (invContainer) {
             invContainer.style.display = 'block';
             
-            // СУРЕТ ДАЙЫН БОЛҒАНДА ТӨМЕНГЕ СКРОЛЛ ЖАСАУ
+            // Тек шақырту дайын болғанда ғана төменге скролл жасайды
             setTimeout(() => {
                 invContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 600);
